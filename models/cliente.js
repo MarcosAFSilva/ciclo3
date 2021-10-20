@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     cidade: DataTypes.STRING,
     uf: DataTypes.STRING,
     nascimento: DataTypes.DATEONLY,
-    ClienteDesde: DataTypes.DATEONLY
+    clienteDesde: DataTypes.DATEONLY
 }, {
     sequelize,
     modelName: 'Cliente',
