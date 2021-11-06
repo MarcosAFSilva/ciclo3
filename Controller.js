@@ -23,7 +23,7 @@ app.get('/', function (req, res){
 });
 
 
-app.post('/servicos', async(req,res) =>{
+app.post('/incluir-servicos', async(req,res) =>{
     await servico.create(
      req.body
     ).then(function(){
@@ -37,26 +37,6 @@ app.post('/servicos', async(req,res) =>{
             message: 'Foi impossível se conectar'
         })
     });
-});
-
-app.post('/servicos', async(req,res) =>{
-    await servico.create({
-        nome: "Node Js",
-        descricao: "Desenvolvimento de aplicaçoes back-end",
-        createAt: new Date(),
-        updateAt: new Date(),
-    });
-    res.send('Serviço criado com sucesso');
-});
-
-app.post('/servicos', async(req,res) =>{
-    await servico.create({
-        nome: "Delphi",
-        descricao: "Manutençao de sistemas em Delphi",
-        createAt: new Date(),
-        updateAt: new Date(),
-    });
-    res.send('Serviço criado com sucesso');
 });
 
 app.post('/clientes', async(req,res) =>{
@@ -76,6 +56,10 @@ app.post('/clientes', async(req,res) =>{
 });
 
 app.get('/pedidos', function (req, res){
+    res.send('Seus pedidos')
+});
+
+app.get('/pedido:id', function (req, res){
     res.send('Seus pedidos')
 });
 
@@ -125,7 +109,7 @@ app.get('/servicos', function (req, res){
 });
 
 
-app.get('/listaservicos', async(req,res) => {
+app.get('/listar-servicos', async(req,res) => {
     await servico.findAll({
         //raw: true
         order: [['nome', 'ASC']]
@@ -150,10 +134,26 @@ app.get('/ofertaservicos', async (req,res) => {
 
 app.get('/servico/:id', async(req,res)=>{
     await servico.findByPk(req.params.id)
-    .then(serv =>{
+    .then(item =>{
         return res.json({
             error: false,
-            serv
+            item
+        });
+    }).catch(function(erro){
+        return res.status(400).json({
+            error: true,
+        message: "Erro: código não encontrado!"
+        }); 
+    });
+});
+
+app.get('/servico/:id/pedidos', async(req,res)=>{
+    await itempedido.findAll({
+        where: {ServicoId: req.params.id}})
+    .then(item =>{
+        return res.json({
+            error: false,
+            item
         });
     }).catch(function(erro){
         return res.status(400).json({
