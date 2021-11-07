@@ -55,7 +55,7 @@ app.post('/incluir-clientes', async(req,res) =>{
     });
 });
 
-app.get('/listar-pedidos', function (req, res){
+app.get('/pedidos', function (req, res){
     res.send('Seus pedidos')
 });
 
@@ -95,7 +95,7 @@ app.post('/itempedidos', async(req,res) =>{
     });
 });
 
-app.get('/listar-pedidos', function (req, res){
+app.get('/pedidos', function (req, res){
     res.send('Seus pedidos')
 });
 
@@ -106,6 +106,15 @@ app.get('/itempedidos', function (req, res){
 
 app.get('/servicos', function (req, res){
     res.send('Conheça nossos serviços');
+});
+
+app.get('/listar-pedidos', async(req,res) => {
+    await servico.findAll({
+        //raw: true
+        order: [['nome', 'ASC']]
+    }).then(function(pedidos){
+        res.json({pedidos})
+    });
 });
 
 
@@ -246,7 +255,7 @@ app.get('/excluir-cliente/:id', async(req,res) =>{
 // INSERIR = PRODUTOS, COMPRAS E ITEM COMPRAS
 
 
-app.post('/produtos', async(req,res) =>{
+app.post('/incluir-produtos', async(req,res) =>{
     await produto.create(
      req.body
     ).then(function(){
@@ -298,7 +307,7 @@ app.post('/compras', async(req,res) =>{
 
 // LISTAR: PRODUTOS, COMPRAS E ITEM COMPRAS
 
-app.get('/listaprodutos', async(req,res) => {
+app.get('/listar-produtos', async(req,res) => {
     await produto.findAll({
         //raw: true
         order: [['nome', 'ASC']]
@@ -307,7 +316,7 @@ app.get('/listaprodutos', async(req,res) => {
     });
 });
 
-app.get('/listacompras', async(req,res) => {
+app.get('/listar-compras', async(req,res) => {
     await produto.findAll({
         //raw: true
         order: [['nome', 'ASC']]
