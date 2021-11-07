@@ -39,7 +39,7 @@ app.post('/incluir-servicos', async(req,res) =>{
     });
 });
 
-app.post('/clientes', async(req,res) =>{
+app.post('/incluir-clientes', async(req,res) =>{
     await cliente.create(
      req.body
     ).then(function(){
@@ -55,7 +55,7 @@ app.post('/clientes', async(req,res) =>{
     });
 });
 
-app.get('/pedidos', function (req, res){
+app.get('/listar-pedidos', function (req, res){
     res.send('Seus pedidos')
 });
 
@@ -63,7 +63,7 @@ app.get('/pedido:id', function (req, res){
     res.send('Seus pedidos')
 });
 
-app.post('/pedidos', async(req,res) =>{
+app.post('/incluir-pedidos', async(req,res) =>{
     await pedido.create(
      req.body
     ).then(function(){
@@ -95,7 +95,7 @@ app.post('/itempedidos', async(req,res) =>{
     });
 });
 
-app.get('/pedidos', function (req, res){
+app.get('/listar-pedidos', function (req, res){
     res.send('Seus pedidos')
 });
 
@@ -118,7 +118,7 @@ app.get('/listar-servicos', async(req,res) => {
     });
 });
 
-app.get('/listaclientes', async(req,res) =>{
+app.get('/listar-clientes', async(req,res) =>{
     await cliente.findAll({
         raw: true})
         .then(function(clientes){
@@ -222,7 +222,7 @@ app.put('/pedidos/:id/editarItem', async(req, res) =>{
             });
 });
 
-app.get('/excluircliente/:id', async(req,res) =>{
+app.get('/excluir-cliente/:id', async(req,res) =>{
     await cliente.destroy({
         where: {id: req.params.id}
     }).then(function(){
